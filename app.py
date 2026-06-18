@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify,render_template
 import sqlite3
 from datetime import datetime
 
-
+DEVICE_TOKEN = "ATTA_SHOP_2026_SECRET"
 
 DATABASE = "bills.db"
 
@@ -43,6 +43,13 @@ def save_bill():
 
     print("API HIT")
     data = request.get_json()
+    token = data.get("device_token")
+
+    if token != DEVICE_TOKEN:
+        return jsonify({
+            "status": "error",
+            "message": "Unauthorized"
+        }), 401
 
     quantity = float(data["quantity"])
     rate = float(data["rate"])
