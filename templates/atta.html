@@ -150,6 +150,8 @@ button{
 </div>
 
 <script>
+    const DEVICE_TOKEN =
+    "ATTA_SHOP_2026_SECRET";
 
 window.onload = function(){
     loadSettings();
@@ -271,7 +273,8 @@ async function saveBillToServer() {
         body: JSON.stringify({
             quantity: qty,
             rate: rate,
-            amount: amount
+            amount: amount,
+            device_token: DEVICE_TOKEN
         })
     });
 
