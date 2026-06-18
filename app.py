@@ -26,7 +26,16 @@ init_db()
 app = Flask(__name__)
 @app.route("/")
 def home():
-    return render_template("atta.html")
+    return """
+    <h2>Atta Shop System</h2>
+
+    <a href='/billing'>Billing Page</a><br><br>
+
+    <a href='/dashboard'>Dashboard</a>
+    """
+@app.route("/billing")
+def billing():
+    return render_template("atta_billing.html")
 
 
 @app.route("/api/bill", methods=["POST"])
