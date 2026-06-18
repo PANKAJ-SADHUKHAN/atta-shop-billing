@@ -35,7 +35,7 @@ def home():
     """
 @app.route("/billing")
 def billing():
-    return render_template("atta_billing.html")
+    return render_template("atta.html")
 
 
 @app.route("/api/bill", methods=["POST"])
