@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Atta Shop Dashboard</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            margin:40px;
+        }
+
+        .card{
+            border:1px solid #ccc;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Atta Shop Dashboard</h1>
+
+<div class="card">
+    <h2>Today's Revenue: ₹{{ revenue }}</h2>
+</div>
+
+<div class="card">
+    <h2>Total Bills: {{ bill_count }}</h2>
+</div>
+
+<div class="card">
+    <h2>Total Atta Sold: {{ total_qty }} Kg</h2>
+</div>
+
+<div class="card">
+
+    <h2>Recent Sales</h2>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+
+        {% for row in rows %}
+
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>₹{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>
