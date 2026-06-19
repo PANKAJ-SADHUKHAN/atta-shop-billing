@@ -1,27 +1,35 @@
 from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
 import sqlite3
 import os
+import psycopg2
 from datetime import datetime
 
 DEVICE_TOKEN = "ATTA_SHOP_2026_SECRET"
 
 DATABASE = "bills.db"
 
+def get_db_connection():
+    return psycopg2.connect(
+        os.environ["DATABASE_URL"]
+    )
 
 def init_db():
-    conn = sqlite3.connect(DATABASE)
+    # conn = sqlite3.connect(DATABASE)
+    conn=get_db_connection()
+    cur=conn.cursor()
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS bills(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         quantity REAL,
         rate REAL,
         amount REAL,
-        created_at TEXT
+        created_at TIMESTAMP
     )
     """)
 
     conn.commit()
+    cur.close()
     conn.close()
 init_db()
 app = Flask(__name__)
