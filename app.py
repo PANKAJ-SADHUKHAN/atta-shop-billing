@@ -27,13 +27,7 @@ app = Flask(__name__)
 app.secret_key = "atta_shop_2026_super_secret_key"
 @app.route("/")
 def home():
-    # return """
-    # <h2>Atta Shop System</h2>
-
-    # <a href='/billing'>Billing Page</a><br><br>
-
-    # <a href='/dashboard'>Dashboard</a>
-    # """
+    
     return redirect("/login")
 
 OWNER_PASSWORD = "atta123"
@@ -48,8 +42,15 @@ def login():
         if password == OWNER_PASSWORD:
 
             session["logged_in"] = True
+            return """
+            <h2>Atta Shop System</h2>
 
-            return redirect("/billing")
+            <a href='/billing'>Billing Page</a><br><br>
+
+            <a href='/dashboard'>Dashboard</a>
+            """
+
+            # return redirect("/billing")
 
     return render_template("login.html")
 
