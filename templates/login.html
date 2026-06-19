@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
     <title>Sadhukhan Enterprise</title>
 
     <style>
@@ -23,7 +25,8 @@
         .login-card{
             background:white;
             padding:30px;
-            width:320px;
+            width:90%;
+            max-width:400px;
             border-radius:12px;
             box-shadow:0 4px 12px rgba(0,0,0,0.15);
             text-align:center;
@@ -56,6 +59,28 @@
         button:hover{
             opacity:0.9;
         }
+@media (min-width: 768px){
+
+    .login-card{
+        max-width:450px;
+        padding:40px;
+    }
+
+    h2{
+        font-size:32px;
+    }
+
+    input{
+        font-size:18px;
+        padding:14px;
+    }
+
+    button{
+        font-size:18px;
+        padding:14px;
+    }
+
+}
 
     </style>
 </head>
