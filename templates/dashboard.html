@@ -6,6 +6,7 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>Atta Shop Dashboard</title>
+    <p id="lastUpdated"></p>
 
     <style>
 
@@ -206,4 +207,19 @@
 </div>
 
 </body>
+<script>
+    function updateTime(){
+
+    document.getElementById("lastUpdated").innerText =
+        "Last Updated: " +
+        new Date().toLocaleTimeString("en-IN");
+
+}
+
+updateTime();
+
+setInterval(() => {
+    location.reload();
+}, 10000);
+</script>
 </html>
