@@ -96,10 +96,18 @@ button{
 .bill-print p{
     margin:2px 0;
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates two equal columns */
+  gap: 15px;                      /* Adds spacing between the divs */
+}
 .item-name{
     font-size:24px;
     font-weight:bold;
     margin-top:10px;
+}
+.shared-style {
+  padding: 20px;
 }
 
 .qty-big{
@@ -268,12 +276,9 @@ function generateBill(){
         <hr>
         <p>Date: ${dateTime}</p>
         <hr>
-        <div class="item-name">
-            ATTA
-        </div>
-
-        <div class="qty-big">
-            ${qty} KG
+        <div class="grid-container">
+        <div class="item-name shared-style">ATTA</div>
+        <div class="qty-big shared-style">${qty} KG</div>
         </div>
         <hr>
         <p>Thank You</p>
