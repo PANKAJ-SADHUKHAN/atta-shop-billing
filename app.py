@@ -1,4 +1,4 @@
-from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
+from flask import (Flask, request, jsonify,render_template,redirect,url_for,session,os)
 import sqlite3
 from datetime import datetime
 
@@ -40,7 +40,7 @@ def menu():
 
     return render_template("menu.html")
 
-OWNER_PASSWORD = "atta123"
+OWNER_PASSWORD = os.environ.get("OWNER_PASSWORD")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
