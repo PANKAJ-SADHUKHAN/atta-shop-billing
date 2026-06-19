@@ -18,7 +18,7 @@ def init_db():
     conn=get_db_connection()
     cur=conn.cursor()
 
-    conn.execute("""
+    cur.execute("""
     CREATE TABLE IF NOT EXISTS bills(
         id SERIAL PRIMARY KEY,
         quantity REAL,
