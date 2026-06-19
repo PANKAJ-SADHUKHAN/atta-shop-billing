@@ -2,20 +2,75 @@
 <html>
 <head>
     <title>Atta Shop System</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:350px;
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+            text-align:center;
+        }
+
+        h2{
+            margin-bottom:25px;
+        }
+
+        .menu-btn{
+            display:block;
+            width:100%;
+            padding:15px;
+            margin-bottom:15px;
+            text-decoration:none;
+            background:#2d89ef;
+            color:white;
+            border-radius:10px;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .logout{
+            background:#d9534f;
+        }
+
+    </style>
 </head>
 <body>
 
-<h2>Atta Shop System</h2>
+<div class="container">
 
-<a href="/billing">Billing Page</a>
+    <h2>Sadhukhan Enterprise</h2>
 
-<br><br>
+    <a class="menu-btn" href="/billing">
+        🧾 Billing Page
+    </a>
 
-<a href="/dashboard">Dashboard</a>
+    <a class="menu-btn" href="/dashboard">
+        📊 Dashboard
+    </a>
 
-<br><br>
+    <a class="menu-btn logout" href="/logout">
+        🚪 Logout
+    </a>
 
-<a href="/logout">Logout</a>
+</div>
 
 </body>
 </html>
