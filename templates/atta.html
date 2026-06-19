@@ -85,6 +85,22 @@ button{
     background:#fff;
     white-space:pre-line;
 }
+.bill-print{
+    text-align:center;
+}
+
+.item-name{
+    font-size:24px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.qty-big{
+    font-size:48px;
+    font-weight:bold;
+    margin-top:15px;
+    margin-bottom:15px;
+}
 
 @media print{
     body *{
@@ -229,30 +245,35 @@ function generateBill(){
 
     let now = new Date();
 
-    let receipt =
-`================================
-${shopName}
-${address}
-Phone: ${phone}
-================================
+    document.getElementById("receipt").innerHTML = `
+    <div class="bill-print">
 
-Date: ${now.toLocaleString()}
+        <h2>${shopName}</h2>
 
-Item           Qty        Amount
+        <p>${address}</p>
 
-Atta           ${qty} Kg      ₹${amount}
+        <p>Phone: ${phone}</p>
 
---------------------------------
-Total                     ₹${amount}
---------------------------------
+        <hr>
 
-Thank You
-Visit Again
+        <p>${now.toLocaleString()}</p>
 
-================================`;
+        <hr>
 
-    document.getElementById("receipt").innerText =
-        receipt;
+        <div class="item-name">
+            ATTA
+        </div>
+
+        <div class="qty-big">
+            ${qty} KG
+        </div>
+
+        <hr>
+
+        <p>Thank You</p>
+
+    </div>
+`;
         saveBillToServer();
 }
 async function saveBillToServer() {
