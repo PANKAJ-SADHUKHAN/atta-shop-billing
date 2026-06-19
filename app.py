@@ -129,29 +129,35 @@ def dashboard():
     if not session.get("logged_in"):
         return redirect("/login")
         
-    conn = sqlite3.connect("bills.db")
+    conn = get_db_connection()
+    cur=conn.cursor()
+    cur.execute("""
+        SELECT COALESCE(SUM(amount),0)
+        FROM bills
+    """)
+    revenue = cur.fetchone()[0]
 
-    revenue = conn.execute(
-        "SELECT IFNULL(SUM(amount),0) FROM bills"
-    ).fetchone()[0]
+    cur.execute("""
+        SELECT COUNT(*)
+        FROM bills
+    """)
+    bill_count = cur.fetchone()[0]
 
-    bill_count = conn.execute(
-        "SELECT COUNT(*) FROM bills"
-    ).fetchone()[0]
+    cur.execute("""
+        SELECT COALESCE(SUM(quantity),0)
+        FROM bills
+    """)
+    total_qty = cur.fetchone()[0]
 
-    total_qty = conn.execute(
-        "SELECT IFNULL(SUM(quantity),0) FROM bills"
-    ).fetchone()[0]
-
-    rows = conn.execute(
-        """
+    cur.execute("""
         SELECT *
         FROM bills
         ORDER BY id DESC
         LIMIT 20
-        """
-    ).fetchall()
+    """)
+    rows = cur.fetchall()
 
+    cur.close()
     conn.close()
 
     return render_template(
@@ -161,6 +167,7 @@ def dashboard():
         total_qty=total_qty,
         rows=rows
     )
+    
 
 if __name__ == "__main__":
     init_db()
