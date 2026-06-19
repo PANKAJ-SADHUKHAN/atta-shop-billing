@@ -85,7 +85,6 @@ def billing():
 @app.route("/api/bill", methods=["POST"])
 def save_bill():
 
-    print("API HIT")
     data = request.get_json()
     token = data.get("device_token")
 
@@ -99,22 +98,22 @@ def save_bill():
     rate = float(data["rate"])
     amount = float(data["amount"])
 
-    conn = sqlite3.connect(DATABASE)
+    conn = get_db_connection()
+    cur=conn.cursor()
 
-    conn.execute("""
+    cur.execute("""
     INSERT INTO bills(
         quantity,
         rate,
         amount,
         created_at
     )
-    VALUES(?,?,?,?)
+    VALUES(%s,%s,%s,NOW())
     """,
     (
         quantity,
         rate,
-        amount,
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        amount
     ))
 
 
