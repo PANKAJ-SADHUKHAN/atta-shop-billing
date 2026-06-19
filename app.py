@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify,render_template
+from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
 import sqlite3
 from datetime import datetime
 
@@ -24,17 +24,49 @@ def init_db():
     conn.close()
 init_db()
 app = Flask(__name__)
+app.secret_key = "atta_shop_2026_super_secret_key"
 @app.route("/")
 def home():
-    return """
-    <h2>Atta Shop System</h2>
+    # return """
+    # <h2>Atta Shop System</h2>
 
-    <a href='/billing'>Billing Page</a><br><br>
+    # <a href='/billing'>Billing Page</a><br><br>
 
-    <a href='/dashboard'>Dashboard</a>
-    """
+    # <a href='/dashboard'>Dashboard</a>
+    # """
+    return redirect("/login")
+
+OWNER_PASSWORD = "atta123"
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        password = request.form.get("password")
+
+        if password == OWNER_PASSWORD:
+
+            session["logged_in"] = True
+
+            return redirect("/billing")
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/login")
+
+
 @app.route("/billing")
 def billing():
+    if not session.get("logged_in"):
+        return redirect("/login")
+        
     return render_template("atta.html")
 
 
@@ -83,7 +115,9 @@ def save_bill():
     
 @app.route("/dashboard")
 def dashboard():
-
+    if not session.get("logged_in"):
+        return redirect("/login")
+        
     conn = sqlite3.connect("bills.db")
 
     revenue = conn.execute(
