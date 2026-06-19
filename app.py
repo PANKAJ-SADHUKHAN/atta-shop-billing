@@ -1,12 +1,9 @@
 from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
-import sqlite3
 import os
 import psycopg2
 from datetime import datetime
 
 DEVICE_TOKEN = "ATTA_SHOP_2026_SECRET"
-
-DATABASE = "bills.db"
 
 def get_db_connection():
     return psycopg2.connect(
@@ -14,7 +11,6 @@ def get_db_connection():
     )
 
 def init_db():
-    # conn = sqlite3.connect(DATABASE)
     conn=get_db_connection()
     cur=conn.cursor()
 
