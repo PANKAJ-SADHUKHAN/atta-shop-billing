@@ -1,19 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Atta Shop Dashboard</title>
 
     <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
         body{
-            font-family: Arial;
-            margin:40px;
+            background:#f4f4f4;
+            padding:20px;
+        }
+
+        .header{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        .header h1{
+            color:#333;
+        }
+
+        .stats{
+            display:grid;
+            grid-template-columns:1fr;
+            gap:15px;
+            margin-bottom:25px;
         }
 
         .card{
-            border:1px solid #ccc;
+            background:white;
             padding:20px;
-            margin-bottom:20px;
-            border-radius:10px;
+            border-radius:12px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3{
+            color:#666;
+            margin-bottom:10px;
+        }
+
+        .card .value{
+            font-size:32px;
+            font-weight:bold;
+            color:#2d89ef;
+        }
+
+        .table-card{
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            overflow-x:auto;
+        }
+
+        .table-title{
+            margin-bottom:15px;
         }
 
         table{
@@ -21,32 +72,100 @@
             border-collapse:collapse;
         }
 
-        th,td{
-            border:1px solid #ddd;
-            padding:10px;
-            text-align:left;
+        th{
+            background:#2d89ef;
+            color:white;
         }
+
+        th,td{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        tr:nth-child(even){
+            background:#f9f9f9;
+        }
+
+        .actions{
+            text-align:center;
+            margin-top:20px;
+        }
+
+        .btn{
+            display:inline-block;
+            text-decoration:none;
+            padding:12px 20px;
+            border-radius:8px;
+            color:white;
+            margin:5px;
+            font-weight:bold;
+        }
+
+        .billing-btn{
+            background:#2d89ef;
+        }
+
+        .logout-btn{
+            background:#d9534f;
+        }
+
+        @media (min-width:768px){
+
+            .stats{
+                grid-template-columns:
+                    repeat(3,1fr);
+            }
+
+            .header h1{
+                font-size:36px;
+            }
+
+            .card .value{
+                font-size:40px;
+            }
+
+        }
+
     </style>
+
 </head>
 <body>
 
-<h1>Atta Shop Dashboard</h1>
-
-<div class="card">
-    <h2>Today's Revenue: ₹{{ revenue }}</h2>
+<div class="header">
+    <h1>Sadhukhan Enterprise Dashboard</h1>
 </div>
 
-<div class="card">
-    <h2>Total Bills: {{ bill_count }}</h2>
+<div class="stats">
+
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <div class="value">
+            ₹{{ revenue }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Bills</h3>
+        <div class="value">
+            {{ bill_count }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Total Atta Sold</h3>
+        <div class="value">
+            {{ total_qty }} Kg
+        </div>
+    </div>
+
 </div>
 
-<div class="card">
-    <h2>Total Atta Sold: {{ total_qty }} Kg</h2>
-</div>
+<div class="table-card">
 
-<div class="card">
-
-    <h2>Recent Sales</h2>
+    <h2 class="table-title">
+        Recent Sales
+    </h2>
 
     <table>
 
@@ -61,7 +180,7 @@
 
         <tr>
             <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
+            <td>{{ row[1] }} Kg</td>
             <td>₹{{ row[3] }}</td>
             <td>{{ row[4] }}</td>
         </tr>
@@ -69,6 +188,20 @@
         {% endfor %}
 
     </table>
+
+</div>
+
+<div class="actions">
+
+    <a href="/billing"
+       class="btn billing-btn">
+       Billing Page
+    </a>
+
+    <a href="/logout"
+       class="btn logout-btn">
+       Logout
+    </a>
 
 </div>
 
