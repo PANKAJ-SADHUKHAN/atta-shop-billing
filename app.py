@@ -1,5 +1,6 @@
-from flask import (Flask, request, jsonify,render_template,redirect,url_for,session,os)
+from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
 import sqlite3
+import os
 from datetime import datetime
 
 DEVICE_TOKEN = "ATTA_SHOP_2026_SECRET"
