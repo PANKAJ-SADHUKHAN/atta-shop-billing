@@ -144,13 +144,6 @@
 <div class="stats">
 
     <div class="card">
-        <h3>Total Revenue</h3>
-        <div class="value">
-            ₹{{ revenue }}
-        </div>
-    </div>
-
-    <div class="card">
         <h3>Total Bills</h3>
         <div class="value">
             {{ bill_count }}
@@ -197,7 +190,6 @@
         <tr>
             <th>ID</th>
             <th>Quantity</th>
-            <th>Amount</th>
             <th>Date</th>
         </tr>
 
@@ -206,7 +198,6 @@
         <tr>
             <td>{{ row[0] }}</td>
             <td>{{ row[1] }} Kg</td>
-            <td>₹{{ row[3] }}</td>
             <td>{{ row[4] }}</td>
         </tr>
 
