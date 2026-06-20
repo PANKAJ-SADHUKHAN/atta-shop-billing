@@ -150,7 +150,7 @@ button{
 <hr>
 
 <label>Quantity (Kg)</label>
-<input type="number" id="qty" step="0.1" oninput="calculateAmount()">
+<input type="number" id="qty" step="0.1">
 
 <div class="quick-buttons">
 <button onclick="setQty(1)">1 Kg</button>
@@ -183,12 +183,6 @@ button{
     });
 
 }
-    const DEVICE_TOKEN =
-    "ATTA_SHOP_2026_SECRET";
-
-window.onload = function(){
-    loadSettings();
-};
 
 const SHOP_NAME = "Sadhukhan Enterprise";
 
@@ -199,43 +193,11 @@ const SHOP_PHONE =
     "9830747515";
 
 
-
-function saveSettings(){
-
-    localStorage.setItem(
-        "rate",
-        document.getElementById("rate").value
-    );
-
-    alert("Rate Saved");
-}
-
-function loadSettings(){
-
-    document.getElementById("rate").value =
-        localStorage.getItem("rate") || "";
-}
           
 function setQty(value){
     document.getElementById("qty").value = value;
-    calculateAmount();
 }
 
-function calculateAmount(){
-
-    let qty = parseFloat(
-        document.getElementById("qty").value
-    ) || 0;
-
-    let rate = parseFloat(
-        document.getElementById("rate").value
-    ) || 0;
-
-    let amount = qty * rate;
-
-    document.getElementById("amount").value =
-        amount.toFixed(2);
-}
 
 function generateBill(){
 
@@ -247,8 +209,6 @@ function generateBill(){
     let qty =
         document.getElementById("qty").value;
 
-    let amount =
-        document.getElementById("amount").value;
     let now = new Date();
     const dateTime = now.toLocaleString("en-IN", {
     day: "2-digit",
@@ -285,10 +245,6 @@ async function saveBillToServer() {
 
     const qty = document.getElementById("qty").value;
 
-    const rate = document.getElementById("rate").value;
-
-    const amount = document.getElementById("amount").value;
-
     const response = await fetch("/api/bill", {
         method: "POST",
         headers: {
@@ -296,8 +252,6 @@ async function saveBillToServer() {
         },
         body: JSON.stringify({
             quantity: qty,
-            rate: rate,
-            amount: amount,
             device_token: DEVICE_TOKEN
         })
     });
