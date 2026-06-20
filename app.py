@@ -96,40 +96,52 @@ def billing():
 
 @app.route("/api/bill", methods=["POST"])
 def save_bill():
-    if not session.get("logged_in"):
+
+    try:
+
+        if not session.get("logged_in"):
+            return jsonify({
+                "error": "Unauthorized"
+            }), 401
+
+        data = request.get_json()
+
+        print("Received:", data)
+
+        if data.get("device_token") != DEVICE_TOKEN:
+            return jsonify({
+                "error": "Invalid Device"
+            }), 403
+
+        quantity = float(data["quantity"])
+
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        cur.execute("""
+            INSERT INTO bills(
+                quantity,
+                created_at
+            )
+            VALUES(%s, NOW())
+        """, (quantity,))
+
+        conn.commit()
+
+        cur.close()
+        conn.close()
+
         return jsonify({
-            "error": "Unauthorized"
-        }), 401
+            "status": "success"
+        })
 
-    data = request.get_json()
-    if data.get("device_token") != DEVICE_TOKEN:
+    except Exception as e:
+
+        print("ERROR:", str(e))
+
         return jsonify({
-            "error": "Invalid Device"
-        }), 403
-
-    quantity = float(data["quantity"])
-    conn = get_db_connection()
-    cur=conn.cursor()
-
-    cur.execute("""
-    INSERT INTO bills(
-        quantity,
-        created_at
-    )
-    VALUES(%s,NOW())
-    """,
-    (
-        quantity
-    ))
-
-
-    conn.commit()
-    conn.close()
-    print(data)
-    return jsonify({
-        "status": "success"
-    })
-
+            "error": str(e)
+        }), 500
 @app.route("/download-pdf")
 def download_pdf():
 
