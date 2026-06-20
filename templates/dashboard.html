@@ -165,7 +165,27 @@
     </div>
 
 </div>
+<div class="report-box">
 
+    <h3>Download PDF Report</h3>
+
+    <form action="/download-pdf" method="GET">
+
+        <input type="date"
+               name="from_date"
+               required>
+
+        <input type="date"
+               name="to_date"
+               required>
+
+        <button type="submit">
+            Download PDF
+        </button>
+
+    </form>
+
+</div>
 <div class="table-card">
 
     <h2 class="table-title">
