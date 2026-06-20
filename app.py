@@ -99,25 +99,18 @@ def save_bill():
         }), 401
 
     quantity = float(data["quantity"])
-    rate = float(data["rate"])
-    amount = float(data["amount"])
-
     conn = get_db_connection()
     cur=conn.cursor()
 
     cur.execute("""
     INSERT INTO bills(
         quantity,
-        rate,
-        amount,
         created_at
     )
-    VALUES(%s,%s,%s,NOW())
+    VALUES(%s,NOW())
     """,
     (
-        quantity,
-        rate,
-        amount
+        quantity
     ))
 
 
@@ -223,11 +216,6 @@ def dashboard():
         
     conn = get_db_connection()
     cur=conn.cursor()
-    cur.execute("""
-        SELECT COALESCE(SUM(amount),0)
-        FROM bills
-    """)
-    revenue = cur.fetchone()[0]
 
     cur.execute("""
         SELECT COUNT(*)
@@ -254,7 +242,6 @@ def dashboard():
 
     return render_template(
         "dashboard.html",
-        revenue=revenue,
         bill_count=bill_count,
         total_qty=total_qty,
         rows=rows
