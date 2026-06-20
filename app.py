@@ -1,4 +1,12 @@
-from flask import (Flask, request, jsonify,render_template,redirect,url_for,session)
+from flask import (Flask, request, jsonify,render_template,redirect,url_for,session,send_file)
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer
+)
+from reportlab.lib.styles import getSampleStyleSheet
+
+from io import BytesIO
 import os
 import psycopg2
 from datetime import datetime
@@ -119,7 +127,95 @@ def save_bill():
     return jsonify({
         "status": "success"
     })
-    
+
+@app.route("/download-pdf")
+def download_pdf():
+
+    if not session.get("logged_in"):
+        return redirect("/login")
+
+    from_date = request.args.get("from_date")
+    to_date = request.args.get("to_date")
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT quantity, created_at
+        FROM bills
+        WHERE DATE(created_at)
+        BETWEEN %s AND %s
+        ORDER BY created_at
+    """, (from_date, to_date))
+
+    rows = cur.fetchall()
+
+    pdf_buffer = BytesIO()
+
+    doc = SimpleDocTemplate(pdf_buffer)
+
+    styles = getSampleStyleSheet()
+
+    elements = []
+
+    elements.append(
+        Paragraph(
+            "Sadhukhan Enterprise Sales Report",
+            styles["Title"]
+        )
+    )
+
+    elements.append(
+        Paragraph(
+            f"From: {from_date} To: {to_date}",
+            styles["Normal"]
+        )
+    )
+
+    elements.append(Spacer(1, 12))
+
+    total_qty = 0
+
+    for row in rows:
+
+        qty = row[0]
+
+        total_qty += qty
+
+        elements.append(
+            Paragraph(
+                f"{row[1]} - {qty} Kg",
+                styles["Normal"]
+            )
+        )
+
+    elements.append(Spacer(1, 12))
+
+    elements.append(
+        Paragraph(
+            f"Total Bills: {len(rows)}",
+            styles["Heading2"]
+        )
+    )
+
+    elements.append(
+        Paragraph(
+            f"Total Quantity: {total_qty} Kg",
+            styles["Heading2"]
+        )
+    )
+
+    doc.build(elements)
+
+    pdf_buffer.seek(0)
+
+    return send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name="sales_report.pdf",
+        mimetype="application/pdf"
+    )
+
 @app.route("/dashboard")
 def dashboard():
     if not session.get("logged_in"):
