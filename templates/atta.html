@@ -183,6 +183,18 @@ button{
 </div>
 
 <script>
+
+    if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("/static/sw.js")
+
+    .then(() => {
+
+        console.log("Service Worker Registered");
+
+    });
+
+}
     const DEVICE_TOKEN =
     "ATTA_SHOP_2026_SECRET";
 
