@@ -36,6 +36,17 @@ def init_db():
     conn.close()
 init_db()
 app = Flask(__name__)
+
+app.secret_key = os.environ.get(
+    "SECRET_KEY"
+)
+
+DEVICE_TOKEN = os.environ.get(
+    "DEVICE_TOKEN"
+)
+
+OWNER_PASSWORD = os.environ.get("OWNER_PASSWORD")
+
 @app.route("/")
 def home():
     if session.get("logged_in"):
@@ -51,7 +62,6 @@ def menu():
 
     return render_template("menu.html")
 
-OWNER_PASSWORD = os.environ.get("OWNER_PASSWORD")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -86,8 +96,16 @@ def billing():
 
 @app.route("/api/bill", methods=["POST"])
 def save_bill():
+    if not session.get("logged_in"):
+        return jsonify({
+            "error": "Unauthorized"
+        }), 401
 
     data = request.get_json()
+    if data.get("device_token") != DEVICE_TOKEN:
+        return jsonify({
+            "error": "Invalid Device"
+        }), 403
 
     quantity = float(data["quantity"])
     conn = get_db_connection()
