@@ -11,7 +11,6 @@ import os
 import psycopg2
 from datetime import datetime
 
-DEVICE_TOKEN = "ATTA_SHOP_2026_SECRET"
 
 def get_db_connection():
     return psycopg2.connect(
@@ -37,7 +36,6 @@ def init_db():
     conn.close()
 init_db()
 app = Flask(__name__)
-app.secret_key = "atta_shop_2026_super_secret_key"
 @app.route("/")
 def home():
     if session.get("logged_in"):
@@ -90,13 +88,6 @@ def billing():
 def save_bill():
 
     data = request.get_json()
-    token = data.get("device_token")
-
-    if token != DEVICE_TOKEN:
-        return jsonify({
-            "status": "error",
-            "message": "Unauthorized"
-        }), 401
 
     quantity = float(data["quantity"])
     conn = get_db_connection()
