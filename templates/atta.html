@@ -248,8 +248,7 @@ async function saveBillToServer() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            quantity: qty,
-            device_token: DEVICE_TOKEN
+            quantity: qty
         })
     });
 
