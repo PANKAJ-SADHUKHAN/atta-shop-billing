@@ -147,20 +147,6 @@ button{
 
 <h2>ATTA BILLING APP</h2>
 
-<label>Shop Name</label>
-<input type="text" id="shopName">
-
-<label>Address</label>
-<input type="text" id="address">
-
-<label>Phone</label>
-<input type="text" id="phone">
-
-<label>Rate Per Kg (₹)</label>
-<input type="number" id="rate">
-
-<button class="save-btn" onclick="saveSettings()">Save Settings</button>
-
 <hr>
 
 <label>Quantity (Kg)</label>
@@ -204,38 +190,32 @@ window.onload = function(){
     loadSettings();
 };
 
+const SHOP_NAME = "Sadhukhan Enterprise";
+
+const SHOP_ADDRESS =
+    "45 RNT Path, Titagarh, Laxmighat";
+
+const SHOP_PHONE =
+    "9830747515";
+
+
+
 function saveSettings(){
 
-    localStorage.setItem("shopName",
-        document.getElementById("shopName").value);
+    localStorage.setItem(
+        "rate",
+        document.getElementById("rate").value
+    );
 
-    localStorage.setItem("address",
-        document.getElementById("address").value);
-
-    localStorage.setItem("phone",
-        document.getElementById("phone").value);
-
-    localStorage.setItem("rate",
-        document.getElementById("rate").value);
-
-    alert("Settings Saved");
+    alert("Rate Saved");
 }
 
 function loadSettings(){
 
-    document.getElementById("shopName").value =
-        localStorage.getItem("shopName") || "";
-
-    document.getElementById("address").value =
-        localStorage.getItem("address") || "";
-
-    document.getElementById("phone").value =
-        localStorage.getItem("phone") || "";
-
     document.getElementById("rate").value =
         localStorage.getItem("rate") || "";
 }
-
+          
 function setQty(value){
     document.getElementById("qty").value = value;
     calculateAmount();
@@ -259,15 +239,11 @@ function calculateAmount(){
 
 function generateBill(){
 
-    let shopName =
-        document.getElementById("shopName").value;
+    let shopName = SHOP_NAME;
 
-    let address =
-        document.getElementById("address").value;
+    let address = SHOP_ADDRESS;
 
-    let phone =
-        document.getElementById("phone").value;
-
+    let phone = SHOP_PHONE;
     let qty =
         document.getElementById("qty").value;
 
