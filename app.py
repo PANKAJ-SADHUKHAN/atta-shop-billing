@@ -142,6 +142,36 @@ def save_bill():
         return jsonify({
             "error": str(e)
         }), 500
+
+@app.route("/delete-bill/<int:bill_id>",
+           methods=["POST"])
+def delete_bill(bill_id):
+
+    if not session.get("logged_in"):
+        return jsonify({
+            "error": "Unauthorized"
+        }), 401
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        DELETE FROM bills
+        WHERE id = %s
+        """,
+        (bill_id,)
+    )
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
+
+    return jsonify({
+        "message": "Bill Deleted"
+    })
+    
 @app.route("/download-pdf")
 def download_pdf():
 
