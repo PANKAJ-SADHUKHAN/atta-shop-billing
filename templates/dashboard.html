@@ -252,7 +252,7 @@
 
         <tr onclick="deleteBill({{ row[0] }})"
     style="cursor:pointer;">
-    <td>{{ row[0] }}</td>
+    <td>{{  bill_count - loop.index + 1 }}</td>
     <td>{{ row[1] }} Kg</td>
 </tr>
 
