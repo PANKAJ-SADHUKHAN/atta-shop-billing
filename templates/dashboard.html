@@ -71,6 +71,12 @@
         .table-title{
             margin-bottom:15px;
         }
+        .table-container{
+    max-height:400px;
+    overflow-y:auto;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
 
         table{
             width:100%;
@@ -78,8 +84,11 @@
         }
 
         th{
+            position:sticky;
+            top:0;
             background:#2d89ef;
             color:white;
+            z-index:1;
         }
 
         th,td{
@@ -232,13 +241,12 @@
     <h2 class="table-title">
         Recent Sales
     </h2>
-
+<div class="table-container">
     <table>
 
         <tr>
             <th>ID</th>
             <th>Quantity</th>
-            <th>Date</th>
         </tr>
 
         {% for row in rows %}
@@ -247,13 +255,12 @@
     style="cursor:pointer;">
     <td>{{ row[0] }}</td>
     <td>{{ row[1] }} Kg</td>
-    <td>{{ row[2] }}</td>
 </tr>
 
         {% endfor %}
 
     </table>
-
+</div>
 </div>
 
 <div class="actions">
