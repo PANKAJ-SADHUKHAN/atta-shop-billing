@@ -195,11 +195,12 @@
 
         {% for row in rows %}
 
-        <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }} Kg</td>
-            <td>{{ row[4] }}</td>
-        </tr>
+        <tr onclick="deleteBill({{ row[0] }})"
+    style="cursor:pointer;">
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }} Kg</td>
+    <td>{{ row[2] }}</td>
+</tr>
 
         {% endfor %}
 
@@ -233,6 +234,31 @@
     });
 
 }
+
+    async function deleteBill(id){
+
+    let confirmDelete = confirm(
+        "Delete this bill?"
+    );
+
+    if(!confirmDelete){
+        return;
+    }
+
+    const response = await fetch(
+        `/delete-bill/${id}`,
+        {
+            method: "POST"
+        }
+    );
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    location.reload();
+}
+
 </script>
 </body>
 
