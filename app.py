@@ -124,7 +124,9 @@ def save_bill():
                 created_at
             )
             VALUES(%s, NOW())
+            RETURNING id
         """, (quantity,))
+        bill_id = cur.fetchone()[0]
 
         conn.commit()
 
@@ -132,7 +134,8 @@ def save_bill():
         conn.close()
 
         return jsonify({
-            "status": "success"
+            "status": "success",
+            "bill_id": bill_id
         })
 
     except Exception as e:
