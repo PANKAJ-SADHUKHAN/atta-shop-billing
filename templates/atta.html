@@ -134,7 +134,8 @@ button{
         position:absolute;
         left:0;
         top:0;
-        width:100%;
+        width:90%;
+        margin:0 auto;
         border:none;
     }
 }
@@ -201,6 +202,27 @@ function formatBillId(id){
 
 }
 
+function formatQuantity(qty){
+
+    qty = parseFloat(qty);
+
+    const kg = Math.floor(qty);
+
+    const grams = Math.round(
+        (qty - kg) * 1000
+    );
+
+    if(grams === 0){
+        return `${kg} KG`;
+    }
+
+    if(kg === 0){
+        return `${grams} G`;
+    }
+
+    return `${kg} . ${grams} G`;
+}
+
 
 async function generateBill(){
 
@@ -235,7 +257,7 @@ async function generateBill(){
         <hr>
         <div class="grid-container">
         <div class="item-name shared-style">ATTA</div>
-        <div class="qty-big shared-style">${qty} KG</div>
+        <div class="qty-big shared-style">${formatQuantity(qty)} KG</div>
         </div>
         <hr>
         <p>Thank You</p>
