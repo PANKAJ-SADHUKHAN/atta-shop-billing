@@ -26,7 +26,7 @@ body{
     box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-h2{
+h4{
     text-align:center;
 }
 
@@ -250,7 +250,7 @@ async function generateBill(){
     document.getElementById("receipt").innerHTML = `
     <div class="bill-print">
         <p><b>Bill No:</b> ${formatBillId(billId)}</p>
-        <h2>${shopName}</h2>
+        <h4>${shopName}</h4>
         <p>${address}</p>
         <p>Phone: ${phone}</p>
         <hr>
