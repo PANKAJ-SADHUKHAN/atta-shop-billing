@@ -26,7 +26,7 @@ body{
     box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
-h4{
+h3{
     text-align:center;
 }
 
@@ -102,8 +102,8 @@ button{
 }
 .grid-container {
   display: grid;
-  grid-template-columns: 35%,65%; /* Creates two equal columns */
-  gap: 15px;                      /* Adds spacing between the divs */
+  grid-template-columns: 1fr,1fr; /* Creates two equal columns */
+  gap: 5px;                      /* Adds spacing between the divs */
 }
 .item-name{
     font-size:20px;
@@ -117,7 +117,6 @@ button{
 .qty-big{
     font-size:20px;
     font-weight:bold;
-    white-space:nowrap;
     margin-top:8px;
     margin-bottom:8px;
 }
@@ -135,7 +134,6 @@ button{
         position:absolute;
         left:0;
         top:0;
-        width:90%;
         margin:0 auto;
         border:none;
     }
@@ -250,7 +248,7 @@ async function generateBill(){
     document.getElementById("receipt").innerHTML = `
     <div class="bill-print">
         <p><b>Bill No:</b> ${formatBillId(billId)}</p>
-        <h4>${shopName}</h4>
+        <h3>${shopName}</h3>
         <p>${address}</p>
         <p>Phone: ${phone}</p>
         <hr>
