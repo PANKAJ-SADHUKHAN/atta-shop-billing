@@ -195,14 +195,21 @@ function setQty(value){
     document.getElementById("qty").value = value;
 }
 
+function formatBillId(id){
 
-function generateBill(){
+    return String(id).padStart(4, "0");
+
+}
+
+
+async function generateBill(){
 
     let shopName = SHOP_NAME;
 
     let address = SHOP_ADDRESS;
 
     let phone = SHOP_PHONE;
+    const billId = await saveBillToServer();
     let qty =
         document.getElementById("qty").value;
 
@@ -215,10 +222,11 @@ function generateBill(){
     minute: "2-digit",
     hour12: true
 });
+    
 
     document.getElementById("receipt").innerHTML = `
     <div class="bill-print">
-
+        <p><b>Bill No:</b> ${formatBillId(billId)}</p>
         <h2>${shopName}</h2>
         <p>${address}</p>
         <p>Phone: ${phone}</p>
@@ -256,6 +264,7 @@ async function saveBillToServer() {
     const result = await response.json();
 
     console.log(result);
+    return result.bill_id;
 }
 
 </script>
