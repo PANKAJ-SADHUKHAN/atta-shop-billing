@@ -102,11 +102,11 @@ button{
 }
 .grid-container {
   display: grid;
-  grid-template-columns:35% 65%; /* Creates two equal columns */
+  grid-template-columns:30% 70%; /* Creates two equal columns */
   gap: 5px;                      /* Adds spacing between the divs */
 }
 .item-name{
-    font-size:20px;
+    font-size:15px;
     font-weight:bold;
     margin-top:10px;
 }
@@ -115,8 +115,7 @@ button{
 }
 
 .qty-big{
-    font-size:20px;
-    font-weight:bold;
+    font-size:30px;
     margin-top:8px;
     margin-bottom:8px;
 }
@@ -159,9 +158,6 @@ button{
 </div>
 
 <button class="bill-btn" onclick="generateBill()">Generate Bill</button>
-<button onclick="testPrinter()">
-    Test Printer App
-</button>
 
 <button class="print-btn" onclick="window.print()">Print Bill</button>
 
@@ -289,22 +285,6 @@ async function saveBillToServer() {
     console.log(result);
     return result.bill_id;
 }
-          function testPrinter(){
-
-    const receiptText =
-`SADHUKHAN ENTERPRISE
-
-Bill No: 0001
-
-ATTA 5 KG
-
-THANK YOU`;
-
-    window.location.href =
-    "attaprinter://print?text=" +
-    encodeURIComponent(receiptText);
-}
-
 </script>
 
 </body>
