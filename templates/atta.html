@@ -159,6 +159,9 @@ button{
 </div>
 
 <button class="bill-btn" onclick="generateBill()">Generate Bill</button>
+<button onclick="testPrinter()">
+    Test Printer App
+</button>
 
 <button class="print-btn" onclick="window.print()">Print Bill</button>
 
@@ -285,6 +288,21 @@ async function saveBillToServer() {
 
     console.log(result);
     return result.bill_id;
+}
+          function testPrinter(){
+
+    const receiptText =
+`SADHUKHAN ENTERPRISE
+
+Bill No: 0001
+
+ATTA 5 KG
+
+THANK YOU`;
+
+    window.location.href =
+    "attaprinter://print?text=" +
+    encodeURIComponent(receiptText);
 }
 
 </script>
