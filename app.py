@@ -274,20 +274,22 @@ def dashboard():
     cur.execute("""
         SELECT COUNT(*)
         FROM bills
+        WHERE DATE(created_at)=CURRENT_DATE
     """)
     bill_count = cur.fetchone()[0]
 
     cur.execute("""
         SELECT COALESCE(SUM(quantity),0)
         FROM bills
+        WHERE DATE(created_at)=CURRENT_DATE
     """)
     total_qty = cur.fetchone()[0]
 
     cur.execute("""
         SELECT *
         FROM bills
+        WHERE DATE(created_at)=CURRENT_DATE
         ORDER BY id DESC
-        LIMIT 20
     """)
     rows = cur.fetchall()
 
