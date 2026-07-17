@@ -38,7 +38,7 @@ body{
 
 .app-header h1{
     margin:0;
-    font-size:28px;
+    font-size:22px;
     font-weight:bold;
 }
 
@@ -224,17 +224,59 @@ button{
     margin-top:0;
     color:#333;
 }
-          .button-row{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
 .receipt-line{
     border:none;
     border-top:1px dashed #9ca3af;
     margin:10px 0;
 }
-
+.button-row{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+}
+.bill-btn{
+    flex:1;
+    height:58px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    border:none;
+    border-radius:14px;
+    box-shadow:0 5px 12px rgba(37,99,235,.30);
+    transition:.2s;
+}
+.print-btn{
+    flex:1;
+    height:58px;
+    background:linear-gradient(135deg,#16a34a,#15803d);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    border:none;
+    border-radius:14px;
+    box-shadow:0 5px 12px rgba(22,163,74,.30);
+    transition:.2s;
+}
+.clear-btn{
+    flex:1;
+    height:58px;
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    border:none;
+    border-radius:14px;
+    box-shadow:0 5px 12px rgba(220,38,38,.30);
+    transition:.2s;
+}
+.button-row button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.05);
+}
+.button-row button:active{
+    transform:scale(.97);
+}
 .button-row button{
     flex:1;
     margin-top:0;
@@ -293,15 +335,15 @@ button{
 <div class="button-row">
 
     <button class="bill-btn" onclick="generateBill()">
-        Generate Bill
+        📄 Generate
     </button>
 
     <button class="print-btn" onclick="window.print()">
-        Print Bill
+        🖨 Print
     </button>
 
     <button class="clear-btn" onclick="clearBill()">
-        Clear Bill
+        🗑 Clear
     </button>
 
 </div>
