@@ -25,99 +25,61 @@ body{
     border-radius:10px;
     box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
-          .app-header{
+.app-header{
 
     background:linear-gradient(135deg,#2563eb,#1d4ed8);
-
     color:white;
-
     text-align:center;
-
     padding:20px;
-
     border-radius:12px;
-
     margin-bottom:20px;
-
     box-shadow:0 4px 10px rgba(0,0,0,.15);
-
 }
 
 .app-header h1{
-
     margin:0;
-
     font-size:28px;
-
     font-weight:bold;
-
 }
 
 .app-header p{
-
     margin-top:6px;
-
     font-size:15px;
-
     opacity:.9;
-
 }
 
 h3{
     text-align:center;
 }
 .qty-label{
-
     font-size:18px;
-
     font-weight:bold;
-
     color:#374151;
-
 }
 
 .qty-input{
-
     width:100%;
-
     height:60px;
-
     font-size:30px;
-
     font-weight:bold;
-
     text-align:center;
-
     border:2px solid #d1d5db;
-
     border-radius:12px;
-
     outline:none;
-
     transition:.25s;
-
     background:#fafafa;
-
 }
 
 .qty-input:focus{
-
     border-color:#2563eb;
-
     box-shadow:0 0 10px rgba(37,99,235,.25);
-
     background:white;
-
 }
 
 .qty-input::placeholder{
-
     font-size:18px;
-
     font-weight:normal;
-
     color:#9ca3af;
-
 }
 label{
     font-weight:bold;
@@ -158,19 +120,34 @@ button{
     background:#ff9800;
     color:white;
 }
-
 .quick-buttons{
     display:flex;
     gap:10px;
-    margin-top:10px;
+    margin-top:15px;
 }
 
 .quick-buttons button{
     flex:1;
-    background:#444;
-    color:white;
+    height:55px;
+    background:white;
+    color:#374151;
+    border:2px solid #d1d5db;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    transition:.2s;
+    box-shadow:0 2px 5px rgba(0,0,0,.08);
 }
 
+.quick-buttons button:hover{
+    background:#eff6ff;
+    border-color:#2563eb;
+}
+.quick-buttons button.active{
+    background:#2563eb;
+    color:white;
+    border-color:#2563eb;
+}
 .receipt{
     margin-top:15px;
     padding:15px;
@@ -280,7 +257,8 @@ button{
     step="0.1"
     inputmode="decimal"
     class="qty-input"
-    placeholder="Enter quantity">
+    placeholder="Enter quantity"
+    oninput="clearQtyError();clearQuickSelection();">
 
 <div class="quick-buttons">
 <button onclick="setQty(1)">1 Kg</button>
@@ -339,7 +317,18 @@ button{
 
 
 function setQty(value){
+
     document.getElementById("qty").value = value;
+    document.querySelectorAll(".quick-buttons button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    event.target.classList.add("active");
+}
+ function clearQuickSelection(){
+
+    document.querySelectorAll(".quick-buttons button")
+        .forEach(btn => btn.classList.remove("active"));
+
 }
 
 function formatBillId(id){
