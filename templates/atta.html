@@ -169,7 +169,7 @@ button{
 <hr>
 
 <label>Quantity (Kg)</label>
-<input type="number" id="qty" step="0.1">
+<input type="number" id="qty" step="0.1" placeholder="Enter Quantity" required>
 
 <div class="quick-buttons">
 <button onclick="setQty(1)">1 Kg</button>
@@ -257,14 +257,14 @@ async function generateBill(){
     let phone = SHOP_PHONE;
     const billId = await saveBillToServer();
     let qty = document.getElementById("qty").value;
-    if(qty === ""){
+    // if(qty === ""){
 
-        alert("Please enter the quantity.");
+    //     alert("Please enter the quantity.");
 
-        document.getElementById("qty").focus();
+    //     document.getElementById("qty").focus();
 
-        return;
-    }
+    //     return;
+    // }
 
     let now = new Date();
     const dateTime = now.toLocaleString("en-IN", {
