@@ -140,6 +140,16 @@ button{
     margin-top:0;
     color:#333;
 }
+          .button-row{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.button-row button{
+    flex:1;
+    margin-top:0;
+}
 
 @media print{
     body *{
@@ -169,7 +179,7 @@ button{
 <hr>
 
 <label>Quantity (Kg)</label>
-<input type="number" id="qty" step="0.1" placeholder="Enter Quantity" required>
+<input type="number" id="qty" step="0.1">
 
 <div class="quick-buttons">
 <button onclick="setQty(1)">1 Kg</button>
@@ -178,10 +188,21 @@ button{
 <button onclick="setQty(10)">10 Kg</button>
 </div>
 
-<button class="bill-btn" onclick="generateBill()">Generate Bill</button>
+<div class="button-row">
 
-<button class="print-btn" onclick="window.print()">Print Bill</button>
-<button class="clear-btn" onclick="clearBill()">Clear Bill</button>
+    <button class="bill-btn" onclick="generateBill()">
+        Generate Bill
+    </button>
+
+    <button class="print-btn" onclick="window.print()">
+        Print Bill
+    </button>
+
+    <button class="clear-btn" onclick="clearBill()">
+        Clear Bill
+    </button>
+
+</div>
 </div>
 <div class="preview-container">
 
@@ -257,14 +278,14 @@ async function generateBill(){
     let phone = SHOP_PHONE;
     const billId = await saveBillToServer();
     let qty = document.getElementById("qty").value;
-    // if(qty === ""){
+    if(qty === ""){
 
-    //     alert("Please enter the quantity.");
+        alert("Please enter the quantity.");
 
-    //     document.getElementById("qty").focus();
+        document.getElementById("qty").focus();
 
-    //     return;
-    // }
+        return;
+    }
 
     let now = new Date();
     const dateTime = now.toLocaleString("en-IN", {
