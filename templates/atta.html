@@ -149,11 +149,20 @@ button{
     border-color:#2563eb;
 }
 .receipt{
-    margin-top:15px;
-    padding:15px;
-    border:1px dashed #000;
-    background:#fff;
-    white-space:pre-line;
+    padding:20px;
+    min-height:220px;
+    background:#ffffff;
+    border:none;
+}
+.empty-preview{
+    height:180px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9ca3af;
+    font-size:18px;
+    border:2px dashed #d1d5db;
+    border-radius:12px;
 }
 .bill-print{
     text-align:center;
@@ -192,13 +201,22 @@ button{
 .clear-btn:hover{
     background:#c82333;
 }
-          .preview-container{
+.preview-container{
     max-width:500px;
-    margin:20px auto;
+    margin:25px auto;
     background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.preview-header{
+    background:#f8fafc;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#374151;
+    border-bottom:1px solid #e5e7eb;
 }
 
 .preview-container h3{
@@ -210,6 +228,11 @@ button{
     display:flex;
     gap:10px;
     margin-top:15px;
+}
+.receipt-line{
+    border:none;
+    border-top:1px dashed #9ca3af;
+    margin:10px 0;
 }
 
 .button-row button{
@@ -285,9 +308,17 @@ button{
 </div>
 <div class="preview-container">
 
-    <h3>Bill Preview</h3>
+    <div class="preview-header">
+        🧾 Bill Preview
+    </div>
 
-    <div id="receipt" class="receipt"></div>
+    <div id="receipt" class="receipt">
+
+        <div class="empty-preview">
+            No bill generated yet
+        </div>
+
+    </div>
 
 </div>
 
@@ -394,14 +425,14 @@ async function generateBill(){
         <h3>${shopName}</h3>
         <p>${address}</p>
         <p>Phone: ${phone}</p>
-        <hr>
+        <hr class="receipt-line">
         <p>Date: ${dateTime}</p>
-        <hr>
+        <hr class="receipt-line">
         <div class="grid-container">
         <div class="item-name shared-style">ATTA</div>
         <div class="qty-big shared-style">${formatQuantity(qty)}</div>
         </div>
-        <hr>
+        <hr class="receipt-line">
         <p>Thank You</p>
 
     </div>
