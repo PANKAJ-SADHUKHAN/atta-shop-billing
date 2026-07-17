@@ -250,6 +250,17 @@ function formatQuantity(qty){
 
 async function generateBill(){
 
+    let qty = document.getElementById("qty").value.trim();
+
+    if(qty === ""){
+
+        alert("Please enter the quantity.");
+
+        document.getElementById("qty").focus();
+
+        return;
+    }
+
     let shopName = SHOP_NAME;
 
     let address = SHOP_ADDRESS;
