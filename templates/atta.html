@@ -250,8 +250,13 @@ function formatQuantity(qty){
 
 async function generateBill(){
 
-    let qty = document.getElementById("qty").value.trim();
+    let shopName = SHOP_NAME;
 
+    let address = SHOP_ADDRESS;
+
+    let phone = SHOP_PHONE;
+    const billId = await saveBillToServer();
+    let qty = document.getElementById("qty").value;
     if(qty === ""){
 
         alert("Please enter the quantity.");
@@ -260,15 +265,6 @@ async function generateBill(){
 
         return;
     }
-
-    let shopName = SHOP_NAME;
-
-    let address = SHOP_ADDRESS;
-
-    let phone = SHOP_PHONE;
-    const billId = await saveBillToServer();
-    let qty =
-        document.getElementById("qty").value;
 
     let now = new Date();
     const dateTime = now.toLocaleString("en-IN", {
