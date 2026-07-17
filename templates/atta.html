@@ -263,21 +263,26 @@ async function generateBill(){
 `;
 }
 
-function printBill(){
+let printing = false;
+
+function printBill() {
+
+    printing = true;
 
     window.print();
+}
 
-    setTimeout(function(){
+document.addEventListener("visibilitychange", function () {
+
+    if (!document.hidden && printing) {
+
+        printing = false;
 
         document.getElementById("receipt").innerHTML = "";
-
         document.getElementById("qty").value = "";
-
         document.getElementById("qty").focus();
-
-    },1000);
-
-}
+    }
+});
 async function saveBillToServer() {
 
     console.log("Saving bill...");
