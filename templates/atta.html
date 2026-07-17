@@ -158,7 +158,7 @@ button{
 
 <button class="bill-btn" onclick="generateBill()">Generate Bill</button>
 
-<button class="print-btn" onclick="window.print()">Print Bill</button>
+<button class="print-btn" onclick="printBill()">Print Bill</button>
 
 <div id="receipt" class="receipt"></div>
 
@@ -261,6 +261,22 @@ async function generateBill(){
 
     </div>
 `;
+}
+
+function printBill(){
+
+    window.print();
+
+    setTimeout(function(){
+
+        document.getElementById("receipt").innerHTML = "";
+
+        document.getElementById("qty").value = "";
+
+        document.getElementById("qty").focus();
+
+    },1000);
+
 }
 async function saveBillToServer() {
 
