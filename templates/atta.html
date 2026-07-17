@@ -118,6 +118,14 @@ button{
     margin-top:8px;
     margin-bottom:8px;
 }
+.clear-btn{
+    background:#dc3545;
+    color:white;
+}
+
+.clear-btn:hover{
+    background:#c82333;
+}
 
 @media print{
     body *{
@@ -158,8 +166,9 @@ button{
 
 <button class="bill-btn" onclick="generateBill()">Generate Bill</button>
 
-<button class="print-btn" onclick="printBill()">Print Bill</button>
-
+<button class="print-btn" onclick="window.print()">Print Bill</button>
+<button class="clear-btn" onclick="clearBill()">Clear Bill</button>
+          
 <div id="receipt" class="receipt"></div>
 
 </div>
@@ -262,27 +271,15 @@ async function generateBill(){
     </div>
 `;
 }
+function clearBill(){
 
-let printing = false;
+    document.getElementById("receipt").innerHTML = "";
 
-function printBill() {
+    document.getElementById("qty").value = "";
 
-    printing = true;
+    document.getElementById("qty").focus();
 
-    window.print();
 }
-
-document.addEventListener("visibilitychange", function () {
-
-    if (!document.hidden && printing) {
-
-        printing = false;
-
-        document.getElementById("receipt").innerHTML = "";
-        document.getElementById("qty").value = "";
-        document.getElementById("qty").focus();
-    }
-});
 async function saveBillToServer() {
 
     console.log("Saving bill...");
