@@ -126,6 +126,20 @@ button{
 .clear-btn:hover{
     background:#c82333;
 }
+          .preview-container{
+    max-width:500px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.preview-container h3{
+    text-align:center;
+    margin-top:0;
+    color:#333;
+}
 
 @media print{
     body *{
@@ -168,8 +182,12 @@ button{
 
 <button class="print-btn" onclick="window.print()">Print Bill</button>
 <button class="clear-btn" onclick="clearBill()">Clear Bill</button>
-          
-<div id="receipt" class="receipt"></div>
+</div>
+<div class="preview-container">
+
+    <h3>Bill Preview</h3>
+
+    <div id="receipt" class="receipt"></div>
 
 </div>
 
